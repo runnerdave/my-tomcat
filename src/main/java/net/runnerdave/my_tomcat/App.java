@@ -4,13 +4,11 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 /**
- * Hello world!
+ * Intro
  *
  */
 public class App {
 
-    // Define a static logger variable so that it references the
-    // Logger instance named "MyApp".
     private static final Logger logger = LogManager.getLogger(App.class);
     
 	public static void main(String[] args) {
