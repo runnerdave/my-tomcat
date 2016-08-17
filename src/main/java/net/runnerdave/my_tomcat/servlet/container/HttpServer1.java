@@ -1,6 +1,5 @@
 package net.runnerdave.my_tomcat.servlet.container;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,22 +11,19 @@ import java.net.UnknownHostException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.runnerdave.my_tomcat.simple.http.Request;
-import net.runnerdave.my_tomcat.simple.http.Response;
 
 public class HttpServer1 {
 	private static final Logger logger = LogManager.getLogger(HttpServer1.class);
 
 	public static void main(String[] args) {
 		HttpServer1 httpServer = new HttpServer1();
-		logger.info("value of webroot:" + WEB_ROOT);
+		logger.info("value of webroot:" + Constants.WEB_ROOT);
 		httpServer.await();
 	}
 
 	private static final String SHUTDOWN_COMMAND = "/SHUTDOWN";
 	
-	public static final String WEB_ROOT = System.getProperty("user.dir") + File.separator + "webroot";
-
+	
 	// the shutdown command received
 	private boolean shutdown = false;
 
@@ -42,6 +38,7 @@ public class HttpServer1 {
 			logger.error("unknown host exception");
 		} catch (IOException e) {
 			logger.error(e.getMessage());
+			System.exit(1);
 		}
 
 		while (!shutdown) {
@@ -59,7 +56,16 @@ public class HttpServer1 {
 				
 				Response response = new Response(output);
 				response.setRequest(request);
-				response.setStaticResource();
+				// check if this is a request for a servlet or a static resource
+		        // a request for a servlet begins with "/servlet/"
+		        if (request.getUri().startsWith("/servlet/")) {
+		          ServletProcessor1 processor = new ServletProcessor1();
+		          processor.process(request, response);
+		        }
+		        else {
+		          StaticResourceProcessor processor = new StaticResourceProcessor();
+		          processor.process(request, response);
+		        }
 				
 				
 				socket.close();
