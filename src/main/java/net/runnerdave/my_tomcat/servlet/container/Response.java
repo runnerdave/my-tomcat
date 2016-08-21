@@ -147,4 +147,10 @@ public class Response implements ServletResponse {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void setContentLengthLong(long len) {
+		// TODO Auto-generated method stub
+		
+	}
 }

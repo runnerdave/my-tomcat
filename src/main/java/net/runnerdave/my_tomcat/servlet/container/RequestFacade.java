@@ -237,4 +237,10 @@ public class RequestFacade implements ServletRequest {
 		return request.startAsync();
 	}
 
+	@Override
+	public long getContentLengthLong() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

@@ -79,4 +79,10 @@ public class ResponseFacade implements ServletResponse {
 		
 	}
 
+	@Override
+	public void setContentLengthLong(long len) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

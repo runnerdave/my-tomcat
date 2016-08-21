@@ -275,4 +275,10 @@ public class Request implements ServletRequest {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public long getContentLengthLong() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }
